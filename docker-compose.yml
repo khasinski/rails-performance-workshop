@@ -11,3 +11,11 @@ services:
     command: bundle exec rails s -p 3000
     ports:
       - 3000:3000
+
+  traffic:
+    build: .
+    command: bundle exec rake traffic:go[web]
+    depends_on:
+      - web
+    deploy:
+      replicas: 4

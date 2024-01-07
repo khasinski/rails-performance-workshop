@@ -15,7 +15,8 @@ WORKDIR /rails
 ENV RAILS_LOG_TO_STDOUT="1" \
     RAILS_SERVE_STATIC_FILES="true" \
     RAILS_ENV="production" \
-    BUNDLE_WITHOUT="development"
+    BUNDLE_WITHOUT="development" \
+    SECRET_KEY_BASE="1"
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
@@ -25,7 +26,7 @@ RUN bundle install
 COPY . .
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+RUN bundle exec rails assets:precompile
 
 # Entrypoint prepares the database.
 RUN chmod +x /rails/bin/docker-entrypoint
