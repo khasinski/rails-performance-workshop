@@ -1,0 +1,13 @@
+# default rails 6.1 with postgresql and redis
+#
+# docker-compose.yml
+include:
+  - docker-compose.stack.yml
+
+services:
+
+  web:
+    build: .
+    command: bundle exec rails s -p 3000
+    ports:
+      - 3000:3000
