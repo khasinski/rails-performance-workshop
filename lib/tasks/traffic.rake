@@ -8,7 +8,7 @@ namespace :traffic do
         client.get '/', {
 
         }
-        sleep 0.01
+        sleep 2
       rescue
         sleep(5)
         next

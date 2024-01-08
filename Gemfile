@@ -24,6 +24,8 @@ gem 'faraday', '~> 1.4.3'
 
 gem 'kaminari', '~> 1.2.2'
 
+gem 'appsignal', '~> 3.5.3'
+
 group :development do
   gem 'spring'
   gem 'listen', '~> 3.3'

@@ -60,6 +60,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    appsignal (3.5.3)
+      rack
     builder (3.2.4)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
@@ -220,6 +222,7 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
+  appsignal (~> 3.5.3)
   debug (>= 1.0.0)
   factory_bot_rails (~> 6.2.0)
   faker (~> 2.18.0)
