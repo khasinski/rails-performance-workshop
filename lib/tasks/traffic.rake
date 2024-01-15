@@ -16,18 +16,18 @@ namespace :traffic do
       end
     end
 
-    collected_urls = Hash.new(0)
-    collected_urls["/"] = 1
+    collected_urls = Hash.new(true)
+    collected_urls["/"] = true
 
     loop do
       begin
         url = collected_urls.keys.sample
         res = Faraday.new("http://#{host}:3000").get(url) {}
 
+        # res.body.scan(URI.regexp).flatten.each do |link|
         Nokogiri::HTML(res.body).css('a').map do |link|
-          collected_urls[link['href']] += 1
+          collected_urls[link['href']] ||= true
         end
-        puts collected_urls
         sleep sleep_time
       rescue StandardError => e
         puts e.message
