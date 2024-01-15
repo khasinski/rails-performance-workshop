@@ -35,7 +35,7 @@ namespace :generate do
         Pet.new(
           created_at: timestamp,
           updated_at: timestamp,
-          name: Faker::Creature::Dog.name,
+          name: [Faker::Creature::Dog.name, Faker::Creature::Cat.name].join(''),
           age: rand(0..15),
           breed: breed,
           color: Faker::Color.color_name,
