@@ -13,36 +13,6 @@
   .row
     .col-md-12
       table.table
-        / create_table "pets", force: :cascade do |t|
-        /     t.string "name"
-        /     t.integer "age"
-        /     t.string "breed"
-        /     t.string "color"
-        /     t.decimal "weight"
-        /     t.integer "pet_type"
-        /     t.integer "gender"
-        /     t.integer "size"
-        /     t.string "microchip_number"
-        /     t.boolean "neutered", default: false
-        /     t.boolean "house_trained", default: false
-        /     t.boolean "special_needs", default: false
-        /     t.boolean "suitable_for_apartments", default: false
-        /     t.boolean "good_with_kids", default: false
-        /     t.boolean "good_with_other_pets", default: false
-        /     t.string "activity_level"
-        /     t.text "personality_traits"
-        /     t.text "medical_conditions"
-        /     t.text "allergies"
-        /     t.text "description"
-        /     t.text "biography"
-        /     t.date "date_of_birth"
-        /     t.date "arrival_date"
-        /     t.date "adoption_date"
-        /     t.bigint "shelter_id"
-        /     t.datetime "created_at", precision: 6, null: false
-        /     t.datetime "updated_at", precision: 6, null: false
-        /     t.index ["shelter_id"], name: "index_pets_on_shelter_id"
-        /   end
         tr
           th Name
           td = pet.name
@@ -65,64 +35,70 @@
           th Gender
           td = pet.gender.to_s.humanize
         tr
-            th Size
-            td = pet.size.to_s.humanize
+          th Size
+          td = pet.size.to_s.humanize
         tr
-            th Microchip number
-            td = pet.microchip_number
+          th Microchip number
+          td = pet.microchip_number
         tr
-            th Neutered
-            td = pet.neutered
+          th Neutered
+          td = pet.neutered
         tr
-            th House trained
-            td = pet.house_trained
+          th House trained
+          td = pet.house_trained
         tr
-            th Special needs
-            td = pet.special_needs
+          th Special needs
+          td = pet.special_needs
         tr
-            th Suitable for apartments
-            td = pet.suitable_for_apartments
+          th Suitable for apartments
+          td = pet.suitable_for_apartments
         tr
-            th Good with kids
-            td = pet.good_with_kids
+          th Good with kids
+          td = pet.good_with_kids
         tr
-            th Good with other pets
-            td = pet.good_with_other_pets
+          th Good with other pets
+          td = pet.good_with_other_pets
         tr
-            th Activity level
-            td = pet.activity_level
+          th Activity level
+          td = pet.activity_level
         tr
-            th Personality traits
-            td = pet.personality_traits
+          th Personality traits
+          td = pet.personality_traits
         tr
-            th Medical conditions
-            td = pet.medical_conditions
+          th Medical conditions
+          td = pet.medical_conditions
         tr
-            th Allergies
-            td = pet.allergies
+          th Allergies
+          td = pet.allergies
         tr
-            th Description
-            td = pet.description
+          th Description
+          td = pet.description
         tr
-            th Biography
-            td = pet.biography
+          th Biography
+          td = pet.biography
         tr
-            th Date of birth
-            td = pet.date_of_birth
+          th Date of birth
+          td = pet.date_of_birth
         tr
-            th Arrival date
-            td = pet.arrival_date
+          th Arrival date
+          td = pet.arrival_date
         tr
-            th Adoption date
-            td = pet.adoption_date
+          th Adoption date
+          td = pet.adoption_date
         tr
-            th Shelter
-            td = pet.shelter.name
+          th Shelter
+          td = pet.shelter.name
         tr
-            th Created at
-            td = pet.created_at.strftime('%Y-%m-%d %H:%M:%S')
+          th Created at
+          td = pet.created_at.strftime('%Y-%m-%d %H:%M:%S')
         tr
-            th Updated at
-            td = pet.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+          th Updated at
+          td = pet.updated_at.strftime('%Y-%m-%d %H:%M:%S')
 
 
+  .row
+    .col-md-12
+      == render 'pets/pets_list', pets: pet.similar_type_pets.limit(4), title: "Similar type pets (#{pet.similar_type_pets.count})"
+  .row
+    .col-md-12
+      == render 'pets/pets_list', pets: pet.similiar_name_pets.limit(4), title: "Similiar name pets (#{pet.similiar_name_pets.count})"

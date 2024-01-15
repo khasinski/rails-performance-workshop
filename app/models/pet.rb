@@ -30,4 +30,17 @@ class Pet < ApplicationRecord
       "https://placekitten.com/#{width}/#{height}?image=#{id % 16}"
     end
   end
+
+  def similar_type_pets
+    Pet.where("id != ?", id).where(pet_type: pet_type).order("random()")
+  end
+
+  def similiar_name_pets
+    first_name = name.split(" ").first
+    Pet.where("id != ?", id).where("name ILIKE ?", "%#{first_name}%")
+    last_name = name.split(" ").last
+    Pet.where("id != ?", id).where("name ILIKE ?", "%#{last_name}%").or(
+      Pet.where("id != ?", id).where("name ILIKE ?", "%#{first_name}%")
+    ).order("random()")
+  end
 end

@@ -1,2 +1,12 @@
 .container
-  == render 'pets/pets_list', pets: @pets, filter: @filter
+  .row
+    .col-md-12
+      h1 Found #{pluralize(@pets_count, 'pet')} matching your search
+
+  .col-md-6.col-md-offset-3
+    center
+      == paginate @pets, theme: 'twitter-bootstrap-3'
+  == render 'pets/pets_list', pets: @pets.limit(12), filter: @filter
+  .col-md-6.col-md-offset-3
+    center
+      == paginate @pets, theme: 'twitter-bootstrap-3'
