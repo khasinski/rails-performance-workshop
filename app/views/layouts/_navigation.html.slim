@@ -1,0 +1,32 @@
+nav.navbar.navbar-inverse style="border-radius: 0px"
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed data-target="#main-navbar" data-toggle="collapse" type="button"
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand href=root_path
+        img src="/favicon.png" style="display: inline-block; height: 25px; padding: 3px"
+        = I18n.t('application.short_title')
+    #main-navbar.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li: a href=root_path = t('homepage')
+        - ['recently_added', 'most_viewed', 'most_commented', 'most_liked', 'recently_adopted', 'random'].each do |filter|
+          li: a href=pets_path(filter: filter) = t(filter)
+      - if defined?(Devise) && current_user.present?
+        ul.nav.navbar-nav.navbar-right
+          li.dropdown
+            a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+              = t('theme')
+              span.caret
+            ul.dropdown-menu role="menu"
+              - theme_names.each do |theme_name|
+                = li_change_theme_to(theme_name)
+          - if current_user.present?
+            li.dropdown
+              a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+                = current_user.email.split('@').first
+                span.caret
+              ul.dropdown-menu role="menu"
+                = li_link_to(:destroy_user_session_path)

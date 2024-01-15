@@ -1,0 +1,13 @@
+- PetView.create(pet_id: pet.id)
+.panel.panel-default
+  .panel-heading
+    h3.panel-title = link_to pet.name, pet
+  .panel-body
+    center
+      = image_tag pet.image_url, class: 'img-responsive'
+      p = pet.description
+  .panel-footer
+      | Age:
+      =<> pet.age
+      | Views:
+      =<> pet.pet_views.count

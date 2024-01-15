@@ -1,0 +1,9 @@
+.row
+  .col-md-12
+    h2 #{filter.to_s.humanize}
+  - pets.each do |pet|
+    .col-md-3
+      == render 'pets/pet_panel', pet: pet
+  .col-md-12
+    .pull-right
+      .btn.btn-default = link_to 'View all', pets_path(filter: filter)

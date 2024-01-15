@@ -26,6 +26,18 @@ gem 'kaminari', '~> 1.2.2'
 
 gem 'appsignal', '~> 3.5.3'
 
+gem "slim-rails"
+gem "jquery-rails"
+gem "non-stupid-digest-assets"
+gem "react-rails" # https://github.com/reactjs/react-rails
+gem "sass-rails"
+gem "uglifier"
+
+source "https://rails-assets.org" do
+  gem "rails-assets-bootswatch-sass", "< 4.0.0"
+  gem "rails-assets-jquery"
+end
+
 group :development do
   gem 'listen', '~> 3.3'
   gem "debug", ">= 1.0.0"
