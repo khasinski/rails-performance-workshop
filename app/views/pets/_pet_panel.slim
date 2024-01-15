@@ -5,9 +5,11 @@
   .panel-body
     center
       = image_tag pet.image_url, class: 'img-responsive'
-      p = pet.description
+      p = pet.description.truncate(50)
   .panel-footer
-      | Age:
-      =<> pet.age
-      | Views:
-      =<> pet.pet_views.count
+    | Age:
+    =<> pet.age
+    | Views:
+    =<> pet.pet_views.count
+    .pull-right
+      .btn.btn-link.btn-sm = link_to 'Show', pet

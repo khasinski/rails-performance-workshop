@@ -23,11 +23,11 @@ class Pet < ApplicationRecord
   validates :color, presence: true
   validates :weight, numericality: { greater_than: 0 }
 
-  def image_url
+  def image_url(width: 100, height: 100)
     if pet_type == "dog"
-      "https://placedog.net/100/100?id=#{id % 230}"
+      "https://placedog.net/#{width}/#{height}?id=#{id % 230}"
     else
-      "https://placekitten.com/100/100?image=#{id % 16}"
+      "https://placekitten.com/#{width}/#{height}?image=#{id % 16}"
     end
   end
 end
