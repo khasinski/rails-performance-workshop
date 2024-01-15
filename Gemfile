@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.0'
+ruby '~> 3.1.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.6'
@@ -27,7 +27,6 @@ gem 'kaminari', '~> 1.2.2'
 gem 'appsignal', '~> 3.5.3'
 
 group :development do
-  gem 'spring'
   gem 'listen', '~> 3.3'
   gem "debug", ">= 1.0.0"
 end
