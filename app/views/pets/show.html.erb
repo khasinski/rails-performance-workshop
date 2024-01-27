@@ -1,0 +1,70 @@
+<% pet ||= @pet %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= pet.pet_type.to_s.humanize %></h3>
+        </div>
+        <div class="panel-body">
+          <%= image_tag(pet.image_url(width: 300, height: 300), class: "img-responsive") %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h1><%= pet.name %></h1>
+      <p><%= pet.description %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <% [
+             ['Name', pet.name],
+             ['Age', pet.age],
+             ['Breed', pet.breed],
+             ['Color', pet.color],
+             ['Weight', pet.weight],
+             ['Pet type', pet.pet_type.to_s.humanize],
+             ['Gender', pet.gender.to_s.humanize],
+             ['Size', pet.size.to_s.humanize],
+             ['Microchip number', pet.microchip_number],
+             ['Neutered', pet.neutered],
+             ['House trained', pet.house_trained],
+             ['Special needs', pet.special_needs],
+             ['Suitable for apartments', pet.suitable_for_apartments],
+             ['Good with kids', pet.good_with_kids],
+             ['Good with other pets', pet.good_with_other_pets],
+             ['Activity level', pet.activity_level],
+             ['Personality traits', pet.personality_traits],
+             ['Medical conditions', pet.medical_conditions],
+             ['Allergies', pet.allergies],
+             ['Description', pet.description],
+             ['Biography', pet.biography],
+             ['Date of birth', pet.date_of_birth],
+             ['Arrival date', pet.arrival_date],
+             ['Adoption date', pet.adoption_date],
+             ['Shelter', pet.shelter.name],
+             ['Created at', pet.created_at.strftime('%Y-%m-%d %H:%M:%S')],
+             ['Updated at', pet.updated_at.strftime('%Y-%m-%d %H:%M:%S')]
+           ].each do |label, value| %>
+          <tr>
+            <th><%= label %></th>
+            <td><%= value %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <%= render 'pets/pets_list', pets: pet.similar_type_pets.limit(4), title: "Similar type pets (#{pet.similar_type_pets.count})" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render 'pets/pets_list', pets: pet.similiar_name_pets.limit(4), title: "Similiar name pets (#{pet.similiar_name_pets.count})" %>
+    </div>
+  </div>
+</div>

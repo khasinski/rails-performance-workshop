@@ -1,0 +1,19 @@
+<% title ||= nil %>
+<% filter ||= nil %>
+<div class="row">
+  <div class="col-md-12">
+    <h2><%= title || filter.to_s.humanize %></h2>
+  </div>
+  <% pets.each do |pet| %>
+    <div class="col-md-3">
+      <%= render 'pets/pet_panel', pet: pet %>
+    </div>
+  <% end %>
+  <% if filter %>
+    <div class="col-md-12">
+      <div class="pull-right">
+        <div class="btn btn-default"><%= link_to 'View all', pets_path(filter: filter) %></div>
+      </div>
+    </div>
+  <% end %>
+</div>

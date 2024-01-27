@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron">
+        <h1><%= I18n.t('application.title') %></h1>
+        <p><%= I18n.t('application.description') %></p>
+      </div>
+    </div>
+  </div>
+  <% @pets.each do |filter, pets| %>
+    <%= render 'pets/pets_list', pets: pets, filter: filter %>
+  <% end %>
+</div>

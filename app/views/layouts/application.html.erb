@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <title><%= page_title %></title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="/favicon.png">
+    <link rel="icon" href="/favicon.png" sizes="128x128" type="image/png">
+    <link rel="icon" href="/favicon.ico" sizes="any" type="image/svg+xml">
+    <meta name="language" content="<%= I18n.locale %>">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta charset="utf-8">
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css", media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+  </head>
+  <body>
+    <%= render 'layouts/navigation' %>
+    <% if flash.present? %>
+      <div class="row">
+        <div class="col-md-12">
+          <%= flash_messages %>
+        </div>
+      </div>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

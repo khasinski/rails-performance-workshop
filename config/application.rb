@@ -24,6 +24,5 @@ module Adopter
       helper_specs: false,
       controller_specs: false
     )
-    config.generators.template_engine :slim
   end
 end
