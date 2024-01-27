@@ -25,6 +25,8 @@ RUN bundle install
 # Copy application code
 COPY . .
 
+RUN mkdir -p /rails/log
+
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN bundle exec rails assets:precompile
 
