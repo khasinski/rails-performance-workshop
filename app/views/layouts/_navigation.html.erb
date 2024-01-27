@@ -15,9 +15,11 @@
     <div id="main-navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li><a href="<%= root_path %>"><%= t('homepage') %></a></li>
-        <% ['recently_added', 'most_viewed', 'most_commented', 'most_liked', 'recently_adopted', 'random'].each do |filter| %>
-          <li><a href="<%= pets_path(filter: filter) %>"><%= t(filter) %></a></li>
-        <% end %>
+        <li><a href="<%= dogs_path %>"><%= t('dogs') %></a></li>
+        <li><a href="<%= cats_path %>"><%= t('cats') %></a></li>
+        <li><a href="<%= pets_path(filter: 'recent') %>"><%= t('recent') %></a></li>
+        <li><a href="<%= pets_path(filter: 'most_viewed') %>"><%= t('most_viewed') %></a></li>
+        <li><a href="<%= random_pets_path %>"><%= t('random') %></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>

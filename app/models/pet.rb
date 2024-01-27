@@ -7,11 +7,15 @@ class Pet < ApplicationRecord
   has_many :pet_views
 
   scope :most_viewed, -> do
-    pet_ids = PetView.group(:pet_id).order('count_pet_id DESC').limit(12).count(:pet_id)
-    relation = where(id: pet_ids.keys)
-    relation = all.limit(12) if relation.empty?
-    relation
+    joins('LEFT JOIN (SELECT pet_id, COUNT(*) as pet_count FROM pet_views GROUP BY pet_id) pet_counts ON pet_counts.pet_id = pets.id')
+      .order(Arel.sql('COALESCE(pet_count, 0) DESC, pets.created_at DESC'))
   end
+
+  scope :recent, -> { order("created_at DESC") }
+  scope :search, ->(name) { where("name ILIKE ?", "%#{name}%") }
+
+  scope :dogs, -> { where(pet_type: "dog") }
+  scope :cats, -> { where(pet_type: "cat") }
 
   enum pet_type: { dog: 0, cat: 1 }
   enum gender: { male: 0, female: 1, unknown: 2 }

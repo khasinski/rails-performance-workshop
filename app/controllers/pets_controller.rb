@@ -1,17 +1,46 @@
 class PetsController < ApplicationController
 
   def index
-    @filter = params[:filter] || "all_pets"
+    @filter = params[:filter]
     @search = params[:q].presence
-    @pets = Pet.all
-    @pets = @pets.where("name ILIKE ?", "%#{@search}%") if @search.present?
-    @pets = @pets.order("created_at DESC")
+    @pets = filtered_pets
+    @pets = @pets.search(@search) if @search.present?
     @pets_count = @pets.count
     @pets = @pets.page(params[:page]).per(9)
+  end
+
+  def dogs
+    @filter = 'dogs'
+  end
+
+  def cats
+
+  end
+
+  def random
+    @pet = Pet.order("random()").first
+    redirect_to pet_path(@pet)
   end
 
   def show
     @pet = Pet.find(params[:id])
     PetView.create(pet_id: @pet.id)
+  end
+
+  private
+
+  def filtered_pets
+    case @filter
+    when "dogs"
+      @pets = Pet.dogs
+    when "cats"
+      @pets = Pet.cats
+    when "most_viewed"
+      @pets = Pet.most_viewed
+    when "recent"
+      @pets = Pet.recent
+    else
+      @pets = Pet.all
+    end
   end
 end
