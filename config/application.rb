@@ -26,7 +26,8 @@ module Adopter
     )
 
 
-    def database_is_not_empty
+    def database_is_not_empty(override = false)
+      return false if override
       @database_is_not_empty ||= (Pet.count != 0)
     end
   end

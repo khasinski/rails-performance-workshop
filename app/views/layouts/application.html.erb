@@ -29,6 +29,6 @@
       </div>
     <% end %>
     <%= yield %>
-    <%= render 'layouts/start_workshop_database' unless Rails.application.database_is_not_empty %>
+    <%= render 'layouts/start_workshop_database' unless Rails.application.database_is_not_empty(params['database_is_not_empty_modal']) %>
   </body>
 </html>

@@ -1,4 +1,4 @@
-<% unless Rails.application.database_is_not_empty %>
+<% unless Rails.application.database_is_not_empty(params['database_is_not_empty_modal']) %>
   <div class="container">
     <div class="modal" id="database_is_not_empty_modal" data-backdrop="false">
       <div class="modal-dialog">
