@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :pets, only: [:index, :show] do
     collection do
-      get :search, to: 'search_pets#index'
+      get :dynamic_search, to: 'search#index'
       get :random, to: 'pets#random'
     end
   end

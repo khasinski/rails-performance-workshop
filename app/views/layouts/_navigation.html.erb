@@ -24,7 +24,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
           <%= form_with url: pets_path, method: :get, local: true, class: 'navbar-form navbar-right' do |f| %>
-            <%= f.text_field :q, placeholder: "search pet name", value: params[:q], class: "form-control" %>
+            <%= f.text_field :q, placeholder: "search pet name", value: params[:q], class: "form-control", id: 'searchbox', autocomplete: "off" %>
+            <ul id="search-results" class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin-right: 60px"></ul>
             <button class="btn btn-default" type="submit">Search</button>
           <% end %>
         </li>
