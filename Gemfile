@@ -10,7 +10,7 @@ gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.7'
+# gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -26,6 +26,18 @@ gem 'kaminari', '~> 1.2.2'
 
 gem 'appsignal', '~> 3.5.3'
 
+gem "slim-rails"
+gem "jquery-rails"
+gem "non-stupid-digest-assets"
+gem "react-rails" # https://github.com/reactjs/react-rails
+gem "sass-rails"
+gem "uglifier"
+
+source "https://rails-assets.org" do
+  gem "rails-assets-bootswatch-sass", "< 4.0.0"
+  gem "rails-assets-jquery"
+end
+
 group :development do
   gem 'listen', '~> 3.3'
   gem "debug", ">= 1.0.0"
@@ -35,3 +47,5 @@ group :test do
   gem "rspec-rails", "~> 5.0.0"
   gem "factory_bot_rails", "~> 6.2.0"
 end
+
+gem "bootstrap-kaminari-views", "~> 0.0.5"

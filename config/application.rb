@@ -12,6 +12,18 @@ module Adopter
 
     config.time_zone = "UTC"
 
-    config.generators.test_framework = :rspec
+    config.generators.stylesheets = false
+    config.generators.javascripts = false
+    config.generators.jbuilder = false
+    config.generators.helper = false
+    config.generators.test_framework(
+      :rspec,
+      fixture: false,
+      route_specs: false,
+      view_specs: false,
+      helper_specs: false,
+      controller_specs: false
+    )
+    config.generators.template_engine :slim
   end
 end
