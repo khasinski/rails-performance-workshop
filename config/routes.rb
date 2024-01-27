@@ -15,4 +15,13 @@ Rails.application.routes.draw do
     root to: redirect('/admin/pets')
     resources :pets, only: [:index]
   end
+
+  # workshop helper routes
+
+    post '/workshop/generate_data', to: -> (env) do
+      GenerateDataJob.perform_later(
+        (env['rack.request.form_hash']['data_generation_loop_size'] || 100).to_i
+      )
+      [303, { 'Location' => '/' }, ['Redirecting...']]
+    end
 end
