@@ -12,7 +12,7 @@ class Pet < ApplicationRecord
   end
 
   scope :recent, -> { order("created_at DESC") }
-  scope :search, ->(name) { where("name ILIKE ?", "%#{name}%") }
+  scope :search, ->(name) { where("name ILIKE ?", "#{name}%") }
 
   scope :dogs, -> { where(pet_type: "dog") }
   scope :cats, -> { where(pet_type: "cat") }

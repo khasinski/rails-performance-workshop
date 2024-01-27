@@ -18,7 +18,7 @@
 $(document).ready(function() {
   $('#searchbox').on('keyup', function() {
     var query = $(this).val();
-    $.get('/pets/dynamic_search', { query: query }, function(data) {
+    $.get('/pets.json?q=', { q: query }, function(data) {
       var pets = data.pets;
       var matching_pets_count = data.matching_pets_count;
       var search_results = $('#search-results');
