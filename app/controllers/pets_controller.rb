@@ -11,10 +11,12 @@ class PetsController < ApplicationController
 
   def dogs
     @filter = 'dogs'
+    @pets = filtered_pets
   end
 
   def cats
-
+    @filter = 'cats'
+    @pets = filtered_pets
   end
 
   def random
