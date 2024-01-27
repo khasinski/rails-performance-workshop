@@ -10,4 +10,9 @@ Rails.application.routes.draw do
       get :random, to: 'pets#random'
     end
   end
+
+  namespace :admin, layout: 'admin' do
+    root to: redirect('/admin/pets')
+    resources :pets, only: [:index]
+  end
 end

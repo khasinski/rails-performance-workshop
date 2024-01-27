@@ -1,0 +1,49 @@
+<div class="container-fluid">
+
+  <div class="col-md-12">
+    <center>
+      <%= paginate @pets, theme: 'twitter-bootstrap-3' %>
+    </center>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Admin::Pets (<%= @pets_total_count %>)</h2>
+    </div>
+    <div class="col-md-12">
+      <table class="table table-responsive">
+        <thead>
+        <tr>
+          <th>Shelter</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Age</th>
+          <th>Breed</th>
+          <th>Vaccinations</th>
+          <th>Views</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @pets.each do |pet| %>
+          <tr>
+            <td><%= pet.shelter.name %></td>
+            <td><%= pet.name %></td>
+            <td><%= pet.pet_type %></td>
+            <td><%= pet.age %></td>
+            <td><%= pet.breed %></td>
+            <td><%= pet.vaccinations.map(&:name).join(', ') %></td>
+            <td><%= pet.pet_views.count %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="col-md-12">
+      <center>
+        <%= paginate @pets, theme: 'twitter-bootstrap-3' %>
+      </center>
+    </div>
+  </div>
+</div>

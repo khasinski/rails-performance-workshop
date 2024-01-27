@@ -13,9 +13,9 @@ namespace :generate do
       )
     end
 
-    vaccinations = 10.times.map do
+    vaccinations = 9.times.map do |i|
       Vaccination.create!(
-        name: Faker::Creature::Dog.breed,
+        name: "V-040#{i}",
         description: Faker::Lorem.paragraph
       )
     end
@@ -65,7 +65,27 @@ namespace :generate do
           shelter_id: shelters.sample.id # Randomly assign a shelter from existing ones
         ).attributes.except('id')
       end
-      Pet.insert_all(pets)
+      pet_ids = Pet.insert_all(pets, returning: [:id]).rows.flatten
+
+      puts "Populating pet_vaccinations #{i+1}/100"
+
+      pet_vaccinations = pet_ids.map do |pet_id|
+        vaccination_ids = vaccinations.sample(rand(1..5)).map(&:id)
+        vaccination_ids.map do |vaccination_id|
+          {
+            pet_id: pet_id,
+            vaccination_id: vaccination_id,
+            vaccination_date: Faker::Date.between(from: '2023-01-01', to: Date.today),
+            created_at: Faker::Time.between(from: 1.year.ago, to: Date.today),
+            updated_at: Faker::Time.between(from: 1.year.ago, to: Date.today)
+          }
+        end
+      end
+
+      PetVaccination.insert_all(pet_vaccinations.flatten)
+
+      raise "Failed to populate pet_vaccinations" if PetVaccination.count == 0
+
     end
   end
 end

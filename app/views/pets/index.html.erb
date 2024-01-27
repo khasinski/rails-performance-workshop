@@ -13,7 +13,7 @@
     </div>
   <% end %>
 
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-12">
     <center>
       <%= paginate @pets, theme: 'twitter-bootstrap-3' %>
     </center>
@@ -21,7 +21,7 @@
 
   <%= render 'pets/pets_list', pets: @pets.limit(12), filter: @filter %>
 
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-12">
     <center>
       <%= paginate @pets, theme: 'twitter-bootstrap-3' %>
     </center>
