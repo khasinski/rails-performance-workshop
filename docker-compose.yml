@@ -14,10 +14,18 @@ services:
     ports:
       - 3000:3000
 
+  db_migrate:
+    build: .
+    command: bundle exec rake db:migrate db:seed
+
   traffic:
     build: .
     command: bundle exec rake traffic:go[web]
+    deploy:
+      replicas: 4 # decrease to 1 or 2 if you have slow computer
+    environment:
+      TRAFFIC_GENERATOR_SLEEP_TIME: 1 # increase to 5 or 10 if you have slow computer
+      TRAFFIC_GENERATOR_HOST: web
     depends_on:
       - web
-    deploy:
-      replicas: 4
+
