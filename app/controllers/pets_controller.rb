@@ -7,6 +7,16 @@ class PetsController < ApplicationController
     @pets = @pets.search(@search) if @search.present?
     @pets_count = @pets.count
     @pets = @pets.page(params[:page]).per(9)
+    respond_to do |format|
+
+      format.html { render :index }
+      format.json do
+        render json: {
+          pets: @pets.map { |pet| { id: pet.id, name: pet.name, link: pet_path(pet) } },
+          matching_pets_count: @pets_count
+        }
+      end
+    end
   end
 
   def dogs
