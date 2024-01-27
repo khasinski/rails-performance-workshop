@@ -26,7 +26,6 @@ gem 'kaminari', '~> 1.2.2'
 
 gem 'appsignal', '~> 3.5.3'
 
-gem "slim-rails"
 gem "jquery-rails"
 gem "non-stupid-digest-assets"
 gem "react-rails" # https://github.com/reactjs/react-rails
