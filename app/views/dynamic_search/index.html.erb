@@ -1,9 +1,0 @@
-<h1>Pets</h1>
-<p>Results: <%= @pets.count %></p>
-<ul>
-<% @pets.first(50).each do |pet| %>
-  <li><%= pet.name %></li>
-<% end %>
-</ul>
-
-<p>Pages = <%= (@pets.count/50).floor %></p>
