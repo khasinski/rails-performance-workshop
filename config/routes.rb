@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
-  root 'search#index'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  root 'home#index'
+
+  resources :pets do
+    collection do
+      get :search, to: 'search_pets#index'
+    end
+  end
 end

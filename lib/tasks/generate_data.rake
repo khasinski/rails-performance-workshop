@@ -32,10 +32,13 @@ namespace :generate do
 
         timestamp = Faker::Time.between(from: 1.year.ago, to: Date.today)
 
+        adoption_date = nil
+        adoption_date = Faker::Time.between(from: timestamp, to: Date.today) if rand(0..10) < 5
+
         Pet.new(
           created_at: timestamp,
           updated_at: timestamp,
-          name: Faker::Creature::Dog.name,
+          name: [Faker::Creature::Dog.name, Faker::Creature::Cat.name].join(' '),
           age: rand(0..15),
           breed: breed,
           color: Faker::Color.color_name,
@@ -58,7 +61,7 @@ namespace :generate do
           biography: Faker::Lorem.paragraph(sentence_count: 5),
           date_of_birth: Faker::Date.between(from: '2008-01-01', to: '2023-01-01'),
           arrival_date: Faker::Date.between(from: '2023-01-01', to: Date.today),
-          adoption_date: nil, # Assuming the pet is not yet adopted
+          adoption_date: adoption_date, # Assuming the pet is not yet adopted
           shelter_id: shelters.sample.id # Randomly assign a shelter from existing ones
         ).attributes.except('id')
       end

@@ -1,0 +1,8 @@
+.container
+  .row
+    .col-md-12
+      .jumbotron
+        h1 = I18n.t('application.title')
+        p = I18n.t('application.description')
+  - @pets.each do |filter, pets|
+    == render 'pets/pets_list', pets: pets, filter: filter
