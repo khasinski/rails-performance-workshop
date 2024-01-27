@@ -14,12 +14,30 @@
     </div>
     <div id="main-navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="<%= root_path %>">Homepage</a></li>
-        <li><a href="<%= dogs_path %>" title="<%= Pet.dogs.count %> dogs waiting to be adopted!">Dogs</a></li>
-        <li><a href="<%= cats_path %>" title="<%= Pet.cats.count %> cats waiting to be adopted!">Cats</a></li>
-        <li><a href="<%= pets_path(filter: 'recent') %>">Recent</a></li>
-        <li><a href="<%= pets_path(filter: 'most_viewed') %>">Most Viewed</a></li>
-        <li><a href="<%= random_pets_path %>">Random</a></li>
+        <li><a href="<%= root_path %>">
+          <i class="fa fa-house"></i>
+          Homepage
+        </a></li>
+        <li><a href="<%= dogs_path %>" title="<%= Pet.dogs.count %> dogs waiting to be adopted!">
+          <i class="fa fa-dog"></i>
+          Dogs
+        </a></li>
+        <li><a href="<%= cats_path %>" title="<%= Pet.cats.count %> cats waiting to be adopted!">
+          <i class="fa fa-cat"></i>
+          Cats
+        </a></li>
+        <li><a href="<%= pets_path(filter: 'recent') %>">
+          <i class="fa fa-clock"></i>
+          Recent
+        </a></li>
+        <li><a href="<%= pets_path(filter: 'most_viewed') %>">
+          <i class="fa fa-eye"></i>
+          Most Viewed
+        </a></li>
+        <li><a href="<%= random_pets_path %>">
+          <i class="fa fa-random"></i>
+          Random
+        </a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
