@@ -1,4 +1,6 @@
 class Shelter < ApplicationRecord
+  geocoded_by :address
+
   has_many :pets
 
   validates :name, presence: true

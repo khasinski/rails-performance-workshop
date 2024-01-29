@@ -1,4 +1,6 @@
 class Pet < ApplicationRecord
+  geocoded_by :address
+
   belongs_to :shelter
   has_many :adoption_applications
   has_many :pet_vaccinations

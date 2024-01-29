@@ -110,6 +110,7 @@ GEM
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
     ffi (1.16.3)
+    geocoder (1.8.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -277,6 +278,7 @@ DEPENDENCIES
   factory_bot_rails (~> 6.2.0)
   faker (~> 2.18.0)
   faraday (~> 1.4.3)
+  geocoder
   jquery-rails
   kaminari (~> 1.2.2)
   listen (~> 3.3)

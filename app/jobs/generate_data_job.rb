@@ -7,11 +7,14 @@ class GenerateDataJob < ApplicationJob
     Vaccination.delete_all
 
     shelters = 100.times.map do
+      location = ANIMAL_SHELTERS.sample[:coordinates].sample
       Shelter.create!(
         name: Faker::Company.name,
         address: Faker::Address.street_address,
         phone: Faker::PhoneNumber.phone_number,
-        email: Faker::Internet.email
+        email: Faker::Internet.email,
+        latitude: location[:latitude],
+        longitude: location[:longitude],
       )
     end
 
@@ -36,6 +39,8 @@ class GenerateDataJob < ApplicationJob
 
         adoption_date = nil
         adoption_date = Faker::Time.between(from: timestamp, to: Date.today) if rand(0..10) < 5
+
+        shelter = shelters.sample
 
         Pet.new(
           created_at: timestamp,
@@ -64,7 +69,9 @@ class GenerateDataJob < ApplicationJob
           date_of_birth: Faker::Date.between(from: '2008-01-01', to: '2023-01-01'),
           arrival_date: Faker::Date.between(from: '2023-01-01', to: Date.today),
           adoption_date: adoption_date, # Assuming the pet is not yet adopted
-          shelter_id: shelters.sample.id # Randomly assign a shelter from existing ones
+          shelter_id: shelter.id, # Randomly assign a shelter from existing ones
+          latitude: shelter.latitude,
+          longitude: shelter.longitude,
         ).attributes.except('id')
       end
       pet_ids = Pet.insert_all(pets, returning: [:id]).rows.flatten
@@ -89,5 +96,8 @@ class GenerateDataJob < ApplicationJob
       raise "Failed to populate pet_vaccinations" if PetVaccination.count == 0
 
     end
+
+
+
   end
 end

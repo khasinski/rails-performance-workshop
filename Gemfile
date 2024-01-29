@@ -31,6 +31,7 @@ gem "non-stupid-digest-assets"
 gem "react-rails" # https://github.com/reactjs/react-rails
 gem "sass-rails"
 gem "uglifier"
+gem "geocoder"
 
 source "https://rails-assets.org" do
   gem "rails-assets-bootswatch-sass", "< 4.0.0"
