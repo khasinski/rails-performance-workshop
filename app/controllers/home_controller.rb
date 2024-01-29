@@ -2,7 +2,6 @@ class HomeController < ApplicationController
   def index
     list_size = 4
 
-    
     @pets = {
       recently_added: Pet.all.order(created_at: :desc).limit(list_size),
       most_commented: Pet.all.order(created_at: :desc).limit(list_size), # TODO: add comments

@@ -10,7 +10,7 @@ services:
     build: .
     command: bundle exec rails s -p 3000
     environment:
-      - APPSIGNAL_PUSH_API_KEY=a5b0a835-b379-4692-bf70-82618119f7fc
+      - APPSIGNAL_PUSH_API_KEY=${APPSIGNAL_PUSH_API_KEY}
     ports:
       - 3000:3000
     expose:
