@@ -12,7 +12,7 @@ class PetsController < ApplicationController
       format.html { render :index }
       format.json do
         render json: {
-          pets: @pets.map { |pet| { id: pet.id, name: pet.name, link: pet_path(pet) } },
+          pets: @pets.map { |pet| { id: pet.id, name: pet.name, link: pet_path(pet), breed: pet.breed } },
           matching_pets_count: @pets_count
         }
       end
@@ -21,12 +21,14 @@ class PetsController < ApplicationController
 
   def dogs
     @filter = 'dogs'
-    @pets = filtered_pets
+    @pets = filtered_pets.page(params[:page]).per(9)
+    @pets_count = @pets.total_count
   end
 
   def cats
     @filter = 'cats'
-    @pets = filtered_pets
+    @pets = filtered_pets.page(params[:page]).per(9)
+    @pets_count = @pets.total_count
   end
 
   def random
@@ -36,6 +38,7 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
+    @extra_info =
     PetView.create(pet_id: @pet.id)
   end
 

@@ -26,9 +26,9 @@ $(document).ready(function() {
       console.log('search_results pets:', pets);
       var html = '';
 
-      pets.forEach(function(pet) {
-        html += '<li><a href="' + pet.link + '">' + pet.name + '</a></li>\n'
-      });
+      html += pets.map(function(pet) {
+        return `<li><a href="${pet.link}"> ${pet.name} (${pet.breed})</a></li>\n`
+      }).join('');
 
       if (matching_pets_count && parseInt(matching_pets_count) > 0) {
         html += '<li role="separator" class="divider"></li>\n'
@@ -38,7 +38,7 @@ $(document).ready(function() {
       search_results.html(html);
       if(pets.length > 0){
         search_results.show();
-      }else{
+      } else {
         search_results.hide();
       }
     });

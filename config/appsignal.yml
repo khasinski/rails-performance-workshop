@@ -1,0 +1,4 @@
+production:
+  ignore_actions:
+    - "MockController#slow_service"
+    - "MockController#outlier"

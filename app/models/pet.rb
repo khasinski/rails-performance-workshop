@@ -6,12 +6,15 @@ class Pet < ApplicationRecord
   has_many_attached :photos
   has_many :pet_views
 
+  default_scope { available.recent }
+
   scope :most_viewed, -> do
     joins('LEFT JOIN (SELECT pet_id, COUNT(*) as pet_count FROM pet_views GROUP BY pet_id) pet_counts ON pet_counts.pet_id = pets.id')
       .order(Arel.sql('COALESCE(pet_count, 0) DESC, pets.created_at DESC'))
   end
 
   scope :recent, -> { order("created_at DESC") }
+  scope :available, -> { where(adoption_date: nil) }
   scope :search, ->(search) { where("name ILIKE :search OR breed ILIKE :search", { search: "%#{search}%" }) }
 
   scope :dogs, -> { where(pet_type: "dog") }
@@ -46,5 +49,21 @@ class Pet < ApplicationRecord
     Pet.where("id != ?", id).where("name ILIKE ?", "%#{last_name}%").or(
       Pet.where("id != ?", id).where("name ILIKE ?", "%#{first_name}%")
     ).order("random()")
+  end
+
+  def tagline
+    if pet_type == "dog"
+      "#{name} is a #{age} year old #{breed} looking for a home!"
+    else
+      JSON.parse(Net::HTTP.get(URI("https://catfact.ninja/fact")))["fact"]
+    end
+  end
+
+  def promo
+    if pet_type == "dog"
+      Net::HTTP.get(URI("http://localhost:3000/mock/slow-service"))
+    else
+      Net::HTTP.get(URI("http://localhost:3000/mock/outlier/#{id}"))
+    end
   end
 end

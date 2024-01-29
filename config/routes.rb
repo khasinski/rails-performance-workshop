@@ -16,6 +16,11 @@ Rails.application.routes.draw do
     resources :pets, only: [:index]
   end
 
+  namespace :mock do
+    get '/slow-service', to: '/mock#slow_service'
+    get '/outlier/:id', to: '/mock#outlier'
+  end
+
   # workshop helper routes
 
     post '/workshop/generate_data', to: -> (env) do
