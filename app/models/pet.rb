@@ -44,7 +44,6 @@ class Pet < ApplicationRecord
 
   def similiar_name_pets
     first_name = name.split(" ").first
-    Pet.where("id != ?", id).where("name ILIKE ?", "%#{first_name}%")
     last_name = name.split(" ").last
     Pet.where("id != ?", id).where("name ILIKE ?", "%#{last_name}%").or(
       Pet.where("id != ?", id).where("name ILIKE ?", "%#{first_name}%")
