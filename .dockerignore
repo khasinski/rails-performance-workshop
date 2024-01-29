@@ -1,1 +1,3 @@
 log
+docker-compose.*
+Dockerfile

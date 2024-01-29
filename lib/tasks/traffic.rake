@@ -6,23 +6,30 @@ namespace :traffic do
     host = ENV.fetch('TRAFFIC_GENERATOR_HOST', args[:host])
     sleep_time = ENV.fetch('TRAFFIC_GENERATOR_SLEEP_TIME', 1).to_i
 
+    puts "Starting traffic generator for #{host} with sleep time #{sleep_time}"
+
     # wait for server to start
     loop do
       begin
-        Faraday.new("http://#{host}:3000").get('/') {}
+        Faraday.new("http://#{host}").get('/') {}
         break
       rescue StandardError
-        sleep sleep_time
+        puts "Waiting for server to start..."
+        sleep sleep_time * 3
       end
     end
 
-    collected_urls = Hash.new(true)
+    collected_urls = {  }
     collected_urls["/"] = true
+
+    visited_urls_count = 0
 
     loop do
       begin
         url = collected_urls.keys.sample
-        res = Faraday.new("http://#{host}:3000").get(url) {}
+        puts "Visited #{visited_urls_count} pages. Visiting #{url}" if visited_urls_count % 10 == 0
+        res = Faraday.new("http://#{host}").get(url) {}
+        visited_urls_count += 1
 
         # res.body.scan(URI.regexp).flatten.each do |link|
         Nokogiri::HTML(res.body).css('a').map do |link|
@@ -31,7 +38,7 @@ namespace :traffic do
         sleep sleep_time
       rescue StandardError => e
         puts e.message
-        sleep sleep_time
+        sleep sleep_time * 3
       end
     end
 
