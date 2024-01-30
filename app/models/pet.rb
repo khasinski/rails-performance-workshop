@@ -12,7 +12,7 @@ class Pet < ApplicationRecord
 
   scope :most_viewed, -> do
     joins('LEFT JOIN (SELECT pet_id, COUNT(*) as pet_count FROM pet_views GROUP BY pet_id) pet_counts ON pet_counts.pet_id = pets.id')
-      .order(Arel.sql('COALESCE(pet_count, 0) DESC, pets.created_at DESC'))
+      .reorder(Arel.sql('COALESCE(pet_count, 0) DESC, pets.created_at DESC'))
   end
 
   scope :recent, -> { order("created_at DESC") }
