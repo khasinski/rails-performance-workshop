@@ -8,7 +8,7 @@ services:
 
   web:
     build: .
-    command: bundle exec rails s -p 3000
+    command: bundle exec rails s -p 3000 -e production
     environment:
       - APPSIGNAL_PUSH_API_KEY=${APPSIGNAL_PUSH_API_KEY}
     ports:

@@ -3,7 +3,7 @@ namespace :traffic do
   task :go, [:host] do |_t, args|
     require 'faraday'
     require 'nokogiri'
-    host = ENV.fetch('TRAFFIC_GENERATOR_HOST', args[:host])
+    host = ENV.fetch('TRAFFIC_GENERATOR_HOST', args[:host] || 'localhost:3000')
     sleep_time = ENV.fetch('TRAFFIC_GENERATOR_SLEEP_TIME', 1).to_i
 
     puts "Starting traffic generator for #{host} with sleep time #{sleep_time}"
@@ -31,7 +31,6 @@ namespace :traffic do
         res = Faraday.new("http://#{host}").get(url) {}
         visited_urls_count += 1
 
-        # res.body.scan(URI.regexp).flatten.each do |link|
         Nokogiri::HTML(res.body).css('a').map do |link|
           collected_urls[link['href']] ||= true
         end
