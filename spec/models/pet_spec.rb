@@ -68,51 +68,51 @@ RSpec.describe Pet, type: :model do
 
   describe "scopes" do
     it "returns recent pets" do
-      pet1 = create(:pet, name: "Fido", age: 5, breed: "Golden Retriever", created_at: 1.day.ago)
-      pet2 = create(:pet, name: "Fido", age: 5, breed: "Golden Retriever")
+      pet1 = create(:pet, name: "Fido", created_at: 1.day.ago)
+      pet2 = create(:pet, name: "Fido")
       expect(Pet.recent).to eq([pet2, pet1])
     end
 
     it "returns available pets" do
-      _pet1 = create(:pet, name: "Fido", age: 5, breed: "Golden Retriever", adoption_date: 1.day.ago)
-      pet2 = create(:pet, name: "Fido", age: 5, breed: "Golden Retriever")
+      _pet1 = create(:pet, name: "Fido", adoption_date: 1.day.ago)
+      pet2 = create(:pet, name: "Fido")
       expect(Pet.available).to eq([pet2])
     end
 
     it "returns pets that match a search" do
-      pet1 = create(:pet, name: "Fido", age: 5, breed: "Golden Retriever")
-      _pet2 = create(:pet, name: "Spot", age: 5, breed: "Golden Retriever")
+      pet1 = create(:pet, name: "Fido")
+      _pet2 = create(:pet, name: "Spot")
       expect(Pet.search("Fido")).to eq([pet1])
     end
 
     it "returns dogs" do
-      pet1 = create(:pet, name: "Fido", age: 5, breed: "Golden Retriever", pet_type: "dog")
-      _pet2 = create(:pet, name: "Spot", age: 5, breed: "Golden Retriever", pet_type: "cat")
+      pet1 = create(:pet, name: "Fido", pet_type: "dog")
+      _pet2 = create(:pet, name: "Spot", pet_type: "cat")
       expect(Pet.dogs).to eq([pet1])
     end
 
     it "returns cats" do
-      _pet1 = create(:pet, name: "Fido", age: 5, breed: "Golden Retriever", pet_type: "dog")
-      pet2 = create(:pet, name: "Spot", age: 5, breed: "Golden Retriever", pet_type: "cat")
+      _pet1 = create(:pet, name: "Fido", pet_type: "dog")
+      pet2 = create(:pet, name: "Spot", pet_type: "cat")
       expect(Pet.cats).to eq([pet2])
     end
 
     it "returns pets similar to the current pet" do
-      pet1 = create(:pet, name: "Fido", age: 5, breed: "Golden Retriever", pet_type: "dog")
-      pet2 = create(:pet, name: "Spot", age: 5, breed: "Golden Retriever", pet_type: "dog")
+      pet1 = create(:pet, name: "Fido", pet_type: "dog")
+      pet2 = create(:pet, name: "Spot", pet_type: "dog")
       expect(pet1.similar_type_pets).to eq([pet2])
     end
 
     it "returns pets with similar names to the current pet" do
-      pet1 = create(:pet, name: "Fido", age: 5, breed: "Golden Retriever", pet_type: "dog")
-      pet2 = create(:pet, name: "Fido", age: 5, breed: "Labrador", pet_type: "cat")
+      pet1 = create(:pet, name: "Fido", breed: "Golden Retriever", pet_type: "dog")
+      pet2 = create(:pet, name: "Fido", breed: "Labrador", pet_type: "cat")
       expect(pet1.similiar_name_pets).to eq([pet2])
     end
 
     it "returns most viewed pets" do
-      pet1 = create(:pet, name: "Fido", age: 5, breed: "Golden Retriever", pet_type: "dog")
-      pet2 = create(:pet, name: "Spot", age: 5, breed: "Golden Retriever", pet_type: "dog")
-      pet3 = create(:pet, name: "Rover", age: 5, breed: "Golden Retriever", pet_type: "dog")
+      pet1 = create(:pet, name: "Fido")
+      pet2 = create(:pet, name: "Spot")
+      pet3 = create(:pet, name: "Rover")
       PetView.create!(pet: pet1)
       PetView.create!(pet: pet1)
       PetView.create!(pet: pet2)
