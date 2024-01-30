@@ -17,6 +17,7 @@ class Pet < ApplicationRecord
 
   scope :recent, -> { order("created_at DESC") }
   scope :available, -> { where(adoption_date: nil) }
+  scope :random, -> { order("RANDOM()") }
   scope :search, ->(search) { where("name ILIKE :search OR breed ILIKE :search", { search: "%#{search}%" }) }
 
   scope :dogs, -> { where(pet_type: "dog") }

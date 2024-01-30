@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '~> 3.1.4'
 
@@ -12,7 +11,7 @@ gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -33,6 +32,8 @@ gem "sass-rails"
 gem "uglifier"
 gem "geocoder"
 
+gem "pghero"
+
 source "https://rails-assets.org" do
   gem "rails-assets-bootswatch-sass", "< 4.0.0"
   gem "rails-assets-jquery"
@@ -40,12 +41,14 @@ end
 
 group :development do
   gem 'listen', '~> 3.3'
-  gem "debug", ">= 1.0.0"
 end
 
 group :test do
   gem "rspec-rails", "~> 5.0.0"
   gem "factory_bot_rails", "~> 6.2.0"
+end
+
+group :development, :test do
   gem "debug", ">= 1.0.0"
 end
 

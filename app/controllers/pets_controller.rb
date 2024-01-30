@@ -32,7 +32,7 @@ class PetsController < ApplicationController
   end
 
   def random
-    @pet = Pet.order("random()").first
+    @pet = Pet.random.first
     redirect_to pet_path(@pet)
   end
 
