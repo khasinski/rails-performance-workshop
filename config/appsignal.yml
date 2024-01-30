@@ -2,3 +2,11 @@ production:
   ignore_actions:
     - "MockController#slow_service"
     - "MockController#outlier"
+    - "PgHero::HomeController#queries"
+    - "PgHero::HomeController#index"
+    - "PgHero::HomeController#live_queries"
+    - "PgHero::HomeController#connections"
+    - "PgHero::HomeController#maintenance"
+    - "PgHero::HomeController#space"
+    - "PgHero::HomeController#tune"
+    - "PgHero::HomeController#explain"
