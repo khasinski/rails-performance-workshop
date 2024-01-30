@@ -33,10 +33,10 @@ class Pet < ApplicationRecord
   validates :weight, numericality: { greater_than: 0 }
 
   def image_url(width: 100, height: 100)
-    if pet_type == "dog"
-      "https://placedog.net/#{width}/#{height}?id=#{id % 230}"
+    if dog?
+      "https://placedog.net/#{width}/#{height}?id=#{(id || 0) % 230}"
     else
-      "https://placekitten.com/#{width}/#{height}?image=#{id % 16}"
+      "https://placekitten.com/#{width}/#{height}?image=#{(id || 0) % 16}"
     end
   end
 
@@ -53,7 +53,7 @@ class Pet < ApplicationRecord
   end
 
   def tagline
-    if pet_type == "dog"
+    if dog?
       "#{name} is a #{age} year old #{breed} looking for a home!"
     else
       JSON.parse(Net::HTTP.get(URI("https://catfact.ninja/fact")))["fact"]
@@ -61,10 +61,14 @@ class Pet < ApplicationRecord
   end
 
   def promo
-    if pet_type == "dog"
+    if dog?
       Net::HTTP.get(URI("http://localhost:3000/mock/slow-service"))
     else
       Net::HTTP.get(URI("http://localhost:3000/mock/outlier/#{id}"))
     end
+  end
+
+  def dog?
+    pet_type == "dog"
   end
 end
