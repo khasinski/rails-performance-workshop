@@ -14,5 +14,15 @@
     <div class="form-group">
       <input type="submit" value="Search" class="btn btn-primary">
     </div>
+    <%
+      random_city = BIGGEST_CITIES.sample[:name]
+      random_distance = rand(5..100)
+    %>
+    <hr />
+    <p>Not sure? Perhaps you'd like a pet
+      <a href="?distance=<%= random_distance %>&distance_from=<%= random_city %>">
+        within <%= random_distance %>km from <%= random_city %>
+      </a>
+    </p>
   </div>
 </form>
