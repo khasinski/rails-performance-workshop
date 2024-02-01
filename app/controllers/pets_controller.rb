@@ -33,6 +33,11 @@ class PetsController < ApplicationController
   def cats
     @filter = 'cats'
     @pets = filtered_pets.page(params[:page]).per(9)
+    @pets = @pets.by_city(params[:distance_from], params[:distance].to_i) if params[:distance_from].present?
+    @search_form = {
+      distance_from: params[:distance_from],
+      distance: params[:distance],
+    }
     @pets_count = @pets.total_count
   end
 
