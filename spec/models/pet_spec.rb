@@ -119,5 +119,13 @@ RSpec.describe Pet, type: :model do
 
       expect(Pet.most_viewed).to eq([pet1, pet2, pet3])
     end
+
+    it "returns pets near a city" do
+      pet1 = create(:pet, name: "Fido", shelter: create(:shelter, latitude: 52.2315, longitude: 21.0068))
+      pet2 = create(:pet, name: "Spot", shelter: create(:shelter, latitude: 52.2303, longitude: 21.0205))
+      pet3 = create(:pet, name: "Rover", shelter: create(:shelter, latitude: 52.2392, longitude: 21.0121))
+
+      expect(Pet.by_city("Warsaw", 1)).to contain_exactly(pet1, pet2, pet3)
+    end
   end
 end
