@@ -22,6 +22,11 @@ class Pet < ApplicationRecord
 
   scope :dogs, -> { where(pet_type: "dog") }
   scope :cats, -> { where(pet_type: "cat") }
+  scope :by_city, ->(city_name, distance) do
+    city = BIGGEST_CITIES.find { |city| city[:name] == city_name }
+    return none unless city
+    near([city[:latitude], city[:longitude]], distance)
+  end
 
   enum pet_type: { dog: 0, cat: 1 }
   enum gender: { male: 0, female: 1, unknown: 2 }

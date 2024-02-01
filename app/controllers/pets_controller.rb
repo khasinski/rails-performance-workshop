@@ -22,7 +22,7 @@ class PetsController < ApplicationController
   def dogs
     @filter = 'dogs'
     @pets = filtered_pets.page(params[:page]).per(9)
-    @pets = geo_find(@pets) if params[:distance_from].present? && params[:distance].present?
+    @pets = @pets.by_city(params[:distance_from], params[:distance].to_i) if params[:distance_from].present?
     @search_form = {
       distance_from: params[:distance_from],
       distance: params[:distance],
@@ -62,11 +62,5 @@ class PetsController < ApplicationController
     else
       @pets = Pet.all
     end
-  end
-
-  def geo_find(pets)
-    city = BIGGEST_CITIES.find { |city| city[:name] == params[:distance_from] }
-    return pets if city.blank?
-    pets.near([city[:latitude], city[:longitude]], params[:distance].to_i)
   end
 end
