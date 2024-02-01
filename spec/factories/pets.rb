@@ -7,5 +7,7 @@ FactoryBot.define do
     weight { Faker::Number.between(from: 1, to: 100) }
     color { Faker::Color.color_name }
     shelter { create(:shelter) }
+    latitude { shelter.latitude }
+    longitude { shelter.longitude }
   end
 end
