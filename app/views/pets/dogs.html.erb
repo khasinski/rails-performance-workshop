@@ -1,17 +1,18 @@
 <div class="container">
 
-  <form method="get">
+  <form method="get" class="form-inline">
 
     <div class="form-group">
       <div class="form-group">
-        <label for="city">City</label>
+        <label for="city">Pets within </label>
+        <input type="number" class="form-control" id="distance" name="distance" value="<%= @search_form[:distance] %>" placeholder="Distance (km)" min="5" max="20">
+        <label> kilometers from </label>
         <select name="distance_from" class="form-control" id="city">
-          <option>Any</option>
+          <option></option>
           <% BIGGEST_CITIES.each do |city| %>
             <option value="<%= city[:name] %>" <% if city[:name] == @search_form[:distance_from] %>selected<% end %>><%= city[:name] %></option>
           <% end %>
         </select>
-        <input type="number" class="form-control" id="distance" name="distance" value="<%= @search_form[:distance] %>" placeholder="Distance (km)" min="5" max="20">
       </div>
       <div class="form-group">
         <input type="submit" value="Search" class="btn btn-primary">
