@@ -98,6 +98,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.secret_key_base = ENV["SECRET_KEY_BASE"] || "1"
+  config.serve_static_files = true
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
