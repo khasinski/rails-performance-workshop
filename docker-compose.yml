@@ -1,10 +1,25 @@
 # default rails 6.1 with postgresql and redis
 #
 # docker-compose.yml
-include:
-  - docker-compose.stack.yml
 
 services:
+  db:
+    image: postgres:16.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: adopter_production
+    command: postgres -c shared_preload_libraries=pg_stat_statements -c pg_stat_statements.track=all
+    ports:
+      - 5432:5432
+
+  redis:
+    image: redis:6.0.9-alpine
+    command: redis-server
+    ports:
+      - 6379:6379
 
   web:
     build: .
@@ -30,3 +45,6 @@ services:
     depends_on:
       - web
 
+volumes:
+  postgres_data:
+    driver: local
