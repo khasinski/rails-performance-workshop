@@ -34,6 +34,8 @@ gem "geocoder"
 
 gem "pghero"
 
+gem "dotenv-rails"
+
 source "https://rails-assets.org" do
   gem "rails-assets-bootswatch-sass", "< 4.0.0"
   gem "rails-assets-jquery"
