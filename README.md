@@ -30,16 +30,33 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
       ```shell
       docker compose up
       ```
-## Running the Local Environment
 
-If you want to run the app locally, you need to install ruby 3.1.4.
-
-Run `bundle install` to install the dependencies.
-
-## Run
+## Run with docker
 
 ```shell
 docker-compose up
 ```
 
+## Setup the Local Environment
 
+1. Install Ruby 3.1.4.
+
+1. Install PostgreSQL. Application was tested with PostgreSQL 16.0
+
+1. Install Redis
+
+1. Install gems
+      ```ruby
+      bundle install
+      ```
+
+1. Copy `.env.example` to `.env` and update ports based on your setup.
+      ```ruby
+      cp .env.example .env
+      ```
+
+## Run with the Local Environment
+
+```shell
+rails s -p 3001
+```
