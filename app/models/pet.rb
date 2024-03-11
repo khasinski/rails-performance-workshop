@@ -63,9 +63,9 @@ class Pet < ApplicationRecord
 
   def promo
     if dog?
-      Net::HTTP.get(URI("http://localhost:3000/mock/slow-service"))
+      Net::HTTP.get(URI("http://localhost:#{ENV["RAILS_PORT"]}/mock/slow-service"))
     else
-      Net::HTTP.get(URI("http://localhost:3000/mock/outlier/#{id}"))
+      Net::HTTP.get(URI("http://localhost:#{ENV["RAILS_PORT"]}/mock/outlier/#{id}"))
     end
   end
 
