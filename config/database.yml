@@ -17,7 +17,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: db
+  host: <%= ENV.fetch("DB_HOST") { "db" } %>
   username: postgres
   password: postgres
   # For details on connection pooling, see Rails configuration guide
@@ -38,5 +38,4 @@ test:
 
 production:
   <<: *default
-  host: db
   database: adopter_production
