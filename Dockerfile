@@ -9,7 +9,7 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man
 
 # Rails app lives here
-WORKDIR /rails
+WORKDIR /app
 
 # Set production environment
 ENV RAILS_LOG_TO_STDOUT="1" \
@@ -23,7 +23,7 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
 # Copy application code
-COPY . .
+COPY . /app
 
 RUN mkdir -p /rails/log
 
@@ -31,8 +31,8 @@ RUN mkdir -p /rails/log
 RUN bundle exec rails assets:precompile
 
 # Entrypoint prepares the database.
-RUN chmod +x /rails/bin/docker-entrypoint
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+RUN chmod +x /app/bin/docker-entrypoint
+ENTRYPOINT ["/app/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000

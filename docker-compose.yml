@@ -1,6 +1,17 @@
-# default rails 6.1 with postgresql and redis
-#
-# docker-compose.yml
+x-adopter: &adopter
+  build: .
+  volumes:
+    - .:/app
+  env_file: .env.docker
+  environment:
+    RAILS_ENV: production
+    RAILS_LOG_TO_STDOUT: true
+    RAILS_SERVE_STATIC_FILES: true
+    DATABASE_URL: postgres://postgres:postgres@db:5432/adopter_production
+    REDIS_URL: redis://redis:6379/1
+  depends_on:
+    - db
+    - redis
 
 services:
   db:
@@ -22,7 +33,7 @@ services:
       - 6379:6389
 
   web:
-    build: .
+    <<: *adopter
     command: bundle exec rails s -p 3001 -e production
     environment:
       - APPSIGNAL_PUSH_API_KEY=${APPSIGNAL_PUSH_API_KEY}
@@ -32,12 +43,12 @@ services:
       - 3001
     env_file: .env.docker
   db_migrate:
-    build: .
+    <<: *adopter
     command: bundle exec rake db:migrate db:seed
     env_file: .env.docker
 
   traffic:
-    build: .
+    <<: *adopter
     command: bundle exec rake traffic:go[web:3000]
     deploy:
       replicas: 4 # decrease to 1 or 2 if you have slow computer
