@@ -8,7 +8,7 @@ x-adopter: &adopter
     RAILS_LOG_TO_STDOUT: true
     RAILS_SERVE_STATIC_FILES: true
     DATABASE_URL: postgres://postgres:postgres@db:5432/adopter_production
-    REDIS_URL: redis://redis:6379/1
+    REDIS_URL: redis://redis:6389/1
   depends_on:
     - db
     - redis
@@ -22,34 +22,37 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: adopter_production
+      PGPORT: 5442
     command: postgres -c shared_preload_libraries=pg_stat_statements -c pg_stat_statements.track=all
     ports:
-      - 5432:5442
+      - 5442:5442
 
   redis:
     image: redis:6.0.9-alpine
     command: redis-server
     ports:
-      - 6379:6389
+      - 6389:6379
 
   web:
     <<: *adopter
-    command: bundle exec rails s -p 3001 -e production
+    command: bin/rails server -p 3001 -e production
     environment:
       - APPSIGNAL_PUSH_API_KEY=${APPSIGNAL_PUSH_API_KEY}
+      - RAILS_LOG_TO_STDOUT=true
     ports:
       - 3001:3001
     expose:
       - 3001
     env_file: .env.docker
+
   db_migrate:
     <<: *adopter
-    command: bundle exec rake db:migrate db:seed
+    command: bin/rails db:migrate db:seed
     env_file: .env.docker
 
   traffic:
     <<: *adopter
-    command: bundle exec rake traffic:go[web:3000]
+    command: bin/rake traffic:go[web:3000]
     deploy:
       replicas: 4 # decrease to 1 or 2 if you have slow computer
     environment:

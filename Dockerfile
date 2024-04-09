@@ -1,15 +1,12 @@
 # Make sure it matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.1.4
-FROM ruby:$RUBY_VERSION
+ARG RUBY_VERSION=3.3.0
+FROM ruby:$RUBY_VERSION-alpine
 
 # Install libvips for Active Storage preview support
-RUN apt-get update -qq && \
-    apt-get install -y build-essential libvips nodejs && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man
+RUN apk add --no-cache --update nodejs npm build-base vips-dev libpq postgresql-dev gcompat tzdata
 
 # Rails app lives here
-WORKDIR /app
+#WORKDIR /app
 
 # Set production environment
 ENV RAILS_LOG_TO_STDOUT="1" \
@@ -30,10 +27,8 @@ RUN mkdir -p /rails/log
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN bundle exec rails assets:precompile
 
-# Entrypoint prepares the database.
-RUN chmod +x /app/bin/docker-entrypoint
-ENTRYPOINT ["/app/bin/docker-entrypoint"]
+WORKDIR /app
 
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 3000
-CMD ["./bin/rails", "server"]
+EXPOSE 3001
+CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3001"]

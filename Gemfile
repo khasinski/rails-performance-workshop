@@ -1,22 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '~> 3.1.4'
+ruby '~> 3.3.0'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.7'
-# Use postgresql as the database for Active Record
+gem 'rails', '~> 6.1.7', '>= 6.1.7.6'
 gem 'pg', '~> 1.1'
-# Use Puma as the app server
 gem 'puma', '~> 5.0'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.7'
-# Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
-# Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
 gem 'faker', '~> 2.18.0'
 
 gem 'faraday', '~> 1.4.3'
@@ -27,7 +16,6 @@ gem 'appsignal', '~> 3.5.3'
 
 gem "jquery-rails"
 gem "non-stupid-digest-assets"
-gem "react-rails" # https://github.com/reactjs/react-rails
 gem "sass-rails"
 gem "uglifier"
 gem "geocoder"

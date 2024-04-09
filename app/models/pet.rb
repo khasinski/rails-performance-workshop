@@ -28,6 +28,8 @@ class Pet < ApplicationRecord
     near([city[:latitude], city[:longitude]], distance, unit: :km)
   end
 
+  scope :random, -> { order("RANDOM()") }
+
   enum pet_type: { dog: 0, cat: 1 }
   enum gender: { male: 0, female: 1, unknown: 2 }
   enum size: { small: 0, medium: 1, large: 2, extra_large: 3 }
@@ -47,15 +49,15 @@ class Pet < ApplicationRecord
   end
 
   def similar_type_pets
-    Pet.where("id != ?", id).where(pet_type: pet_type).order("random()")
+    Pet.where.not(id: id).where(pet_type: pet_type).random
   end
 
   def similiar_name_pets
     first_name = name.split(" ").first
     last_name = name.split(" ").last
-    Pet.where("id != ?", id).where("name ILIKE ?", "%#{last_name}%").or(
-      Pet.where("id != ?", id).where("name ILIKE ?", "%#{first_name}%")
-    ).order("random()")
+    Pet.where.not(id: id).where("name ILIKE ?", "%#{last_name}%").or(
+      Pet.where.not(id: id).where("name ILIKE ?", "%#{first_name}%")
+    ).random
   end
 
   def tagline
