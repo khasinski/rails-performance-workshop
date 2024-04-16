@@ -1,6 +1,6 @@
 # Rails performance workshop
 
-This repository contains a simple Rails application that simulates a slow application.
+This repository contains a simple Rails web application that simulates a variety of performance issues.
 
 It will seed the database and simulate the traffic.
 
