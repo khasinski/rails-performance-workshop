@@ -19,10 +19,9 @@ The goal is to use an APM (in this case AppSignal) to identify the bottlenecks a
 1. Sign up on [AppSignal](https://appsignal.com) and get a Push API key
 
 1. Start the app with the following command:
-
-```bash
-APPSIGNAL_PUSH_API_KEY=YOUR_KEY docker compose up
-```
+    ```bash
+    APPSIGNAL_PUSH_API_KEY=YOUR_KEY docker compose up
+    ```
 
 1. Navigate to [http://localhost:3001](http://localhost:3001) and check if the app is running
 
