@@ -47,7 +47,7 @@ services:
 
   db_migrate:
     <<: *adopter
-    command: bin/rails db:migrate db:seed
+    command: bin/rails db:migrate db:seed assets:precompile generate:data
     env_file: .env.docker
 
   traffic:

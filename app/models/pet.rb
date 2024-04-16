@@ -28,8 +28,6 @@ class Pet < ApplicationRecord
     near([city[:latitude], city[:longitude]], distance, unit: :km)
   end
 
-  scope :random, -> { order("RANDOM()") }
-
   enum pet_type: { dog: 0, cat: 1 }
   enum gender: { male: 0, female: 1, unknown: 2 }
   enum size: { small: 0, medium: 1, large: 2, extra_large: 3 }

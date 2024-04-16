@@ -1,5 +1,10 @@
 namespace :generate do
-  task :data => :environment do |t, args|
-    GenerateDataJob.perform_now((args[:data_generation_loop_size] || 100).to_i)
+  desc "Generate data for the app"
+  task :data => :environment do |_t, _args|
+    pet_batches = (Pet.count / 100).to_i
+
+    GenerateDataJob.new.perform(
+      10_000 - pet_batches
+    ) if pet_batches < 10_000
   end
 end

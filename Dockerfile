@@ -3,7 +3,7 @@ ARG RUBY_VERSION=3.3.0
 FROM ruby:$RUBY_VERSION-alpine
 
 # Install libvips for Active Storage preview support
-RUN apk add --no-cache --update nodejs npm build-base vips-dev libpq postgresql-dev gcompat tzdata
+RUN apk add --no-cache --update nodejs npm build-base vips-dev libpq postgresql-dev gcompat tzdata yarn
 
 # Rails app lives here
 #WORKDIR /app

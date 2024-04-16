@@ -1,33 +1,10 @@
 class GenerateDataJob < ApplicationJob
   self.queue_adapter = :async
 
-  def perform(data_generation_loop_size = 100)
-    Pet.delete_all
-    Shelter.delete_all
-    Vaccination.delete_all
-
-    shelters = 100.times.map do
-      location = ANIMAL_SHELTERS.sample[:coordinates].sample
-      Shelter.create!(
-        name: Faker::Company.name,
-        address: Faker::Address.street_address,
-        phone: Faker::PhoneNumber.phone_number,
-        email: Faker::Internet.email,
-        latitude: location[:latitude],
-        longitude: location[:longitude],
-      )
-    end
-
-    vaccinations = 9.times.map do |i|
-      Vaccination.create!(
-        name: "V-040#{i}",
-        description: Faker::Lorem.paragraph
-      )
-    end
-
-    data_generation_loop_size.times.map do |i|
-      puts "Populating pets #{i+1}/100"
-      pets = 10000.times.map do
+  def perform(data_generation_loop_size = 10000)
+    data_generation_loop_size.times.each do |i|
+      puts "Populating pets #{i+1}/#{data_generation_loop_size}"
+      pets = 100.times.map do
         type = Pet.pet_types.keys.sample
         breed = if type == 'dog'
                   Faker::Creature::Dog.breed
@@ -76,8 +53,6 @@ class GenerateDataJob < ApplicationJob
       end
       pet_ids = Pet.insert_all(pets, returning: [:id]).rows.flatten
 
-      puts "Populating pet_vaccinations #{i+1}/100"
-
       pet_vaccinations = pet_ids.map do |pet_id|
         vaccination_ids = vaccinations.sample(rand(1..5)).map(&:id)
         vaccination_ids.map do |vaccination_id|
@@ -96,8 +71,38 @@ class GenerateDataJob < ApplicationJob
       raise "Failed to populate pet_vaccinations" if PetVaccination.count == 0
 
     end
+  end
 
+  private
 
+  def vaccinations
+    @vaccinations ||= if Vaccination.count > 0
+      Vaccination.all
+    else
+      9.times.map do |i|
+        Vaccination.create!(
+          name: "V-040#{i}",
+          description: Faker::Lorem.paragraph
+        )
+      end
+    end
+  end
 
+  def shelters
+    @shelters ||= if Shelter.count > 0
+      Shelter.all
+    else
+      100.times.map do
+        location = ANIMAL_SHELTERS.sample[:coordinates].sample
+        Shelter.create!(
+          name: Faker::Company.name,
+          address: Faker::Address.street_address,
+          phone: Faker::PhoneNumber.phone_number,
+          email: Faker::Internet.email,
+          latitude: location[:latitude],
+          longitude: location[:longitude],
+          )
+      end
+    end
   end
 end

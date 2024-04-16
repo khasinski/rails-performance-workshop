@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
+  # Admin routes, no traffic goes here, but there are some slow queries
   namespace :admin, layout: 'admin' do
     root to: redirect('/admin/pets')
     resources :pets, only: [:index]
@@ -18,14 +19,7 @@ Rails.application.routes.draw do
   # PgHero routes, use them to figure out long running queries
   mount PgHero::Engine, at: "pghero"
 
-  # Workshop helper routes, pretend they are not here
-  post '/workshop/generate_data', to: -> (env) do
-    GenerateDataJob.perform_later(
-      (env['rack.request.form_hash']['data_generation_loop_size'] || 100).to_i
-    )
-    [303, { 'Location' => '/' }, ['Redirecting...']]
-  end
-
+  # Mock routes, use them to simulate slow services
   namespace :mock do
     get '/slow-service', to: '/mock#slow_service'
     get '/outlier/:id', to: '/mock#outlier'
