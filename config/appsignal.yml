@@ -1,3 +1,4 @@
+# We ignore routes that are not relevant for the workshop
 production:
   ignore_actions:
     - "MockController#slow_service"
