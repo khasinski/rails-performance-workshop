@@ -1,17 +1,26 @@
 # Rails performance workshop
 
+This repository contains a simple Rails application that simulates a slow application.
+
+It will seed the database and simulate the traffic.
+
+The goal is to use an APM (in this case AppSignal) to identify the bottlenecks and improve the performance.
+
 ## Pre-Requisites
 
-- [Docker](https://docs.docker.com/desktop/mac/install/)
-- Docker Compose
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- [AppSignal account](https://appsignal.com)
+- [AppSignal Push API key](https://docs.appsignal.com/appsignal/terminology.html#push-api-key)
+- Free ports: 3001, 5442 and 6389
 
 ## Setup
 
-1. Create account on https://appsignal.com and get an API key
+1. Sign up on [AppSignal](https://appsignal.com) and get a Push API key
 
-1. Create and start the containers
+1. Start the app with the following command:
 
-```shell
+```bash
 APPSIGNAL_PUSH_API_KEY=YOUR_KEY docker compose up
 ```
 
