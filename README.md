@@ -15,6 +15,6 @@
 APPSIGNAL_PUSH_API_KEY=YOUR_KEY docker compose up
 ```
 
-1. Navigate to `http://localhost:3001` and check if the app is running
+1. Navigate to [http://localhost:3001](http://localhost:3001) and check if the app is running
 
 1. Navigate to AppSignal, pick the environment `production` and wait for the traffic data.
