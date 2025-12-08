@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '~> 3.3.0'
+ruby '~> 3.4.7'
 
-gem 'rails', '~> 6.1.7', '>= 6.1.7.6'
+gem 'rails', '~> 7.0.0'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'redis', '~> 4.0'
@@ -35,7 +35,7 @@ end
 
 group :test do
   gem "rspec-rails", "~> 5.0.0"
-  gem "factory_bot_rails", "~> 6.2.0"
+  gem "factory_bot_rails", "~> 6.4.0"
 end
 
 group :development, :test do

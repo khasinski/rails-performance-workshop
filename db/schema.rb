@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_30_202306) do
-
+ActiveRecord::Schema[7.0].define(version: 2024_01_30_202306) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -23,8 +22,8 @@ ActiveRecord::Schema.define(version: 2024_01_30_202306) do
     t.string "applicant_email"
     t.text "reason_for_adoption"
     t.bigint "pet_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["pet_id"], name: "index_adoption_applications_on_pet_id"
   end
 
@@ -32,16 +31,16 @@ ActiveRecord::Schema.define(version: 2024_01_30_202306) do
     t.bigint "pet_id"
     t.bigint "vaccination_id"
     t.date "vaccination_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["pet_id"], name: "index_pet_vaccinations_on_pet_id"
     t.index ["vaccination_id"], name: "index_pet_vaccinations_on_vaccination_id"
   end
 
   create_table "pet_views", force: :cascade do |t|
     t.bigint "pet_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["pet_id"], name: "index_pet_views_on_pet_id"
   end
 
@@ -71,8 +70,8 @@ ActiveRecord::Schema.define(version: 2024_01_30_202306) do
     t.date "arrival_date"
     t.date "adoption_date"
     t.bigint "shelter_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
     t.index ["shelter_id"], name: "index_pets_on_shelter_id"
@@ -83,8 +82,8 @@ ActiveRecord::Schema.define(version: 2024_01_30_202306) do
     t.string "address"
     t.string "phone"
     t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
   end
@@ -92,8 +91,8 @@ ActiveRecord::Schema.define(version: 2024_01_30_202306) do
   create_table "vaccinations", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "adoption_applications", "pets"
