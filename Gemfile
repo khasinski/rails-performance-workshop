@@ -8,7 +8,7 @@ gem 'puma', '~> 5.0'
 gem 'redis', '~> 4.0'
 gem 'faker', '~> 2.18.0'
 
-gem 'faraday', '~> 2.14.1'
+gem 'faraday', '~> 2.14.2'
 
 gem 'kaminari', '~> 1.2.2'
 
