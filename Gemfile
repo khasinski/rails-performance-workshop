@@ -4,7 +4,7 @@ ruby '~> 3.4.7'
 
 gem 'rails', '~> 7.0.0'
 gem 'pg', '~> 1.1'
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 7.2'
 gem 'redis', '~> 4.0'
 gem 'faker', '~> 2.18.0'
 
